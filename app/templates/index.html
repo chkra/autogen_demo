@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hauptseite</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Ein Gespräch unter Robotern ...</h1>
+        <div class="text-center mt-4">
+            <button class="btn btn-primary" onclick="startDialog()">Klicken Sie hier</button>
+        </div>
+        <div id="messages" class="mt-4"></div>
+        <div id="analysis" class="mt-4 text-center"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function startDialog() {
+            fetch('/start-dialog', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+                const analysisDiv = document.getElementById('analysis');
+                analysisDiv.innerHTML = '';
+                let index = 0;
+
+                function displayNextMessage() {
+                    if (index < data.length) {
+                        const message = data[index];
+                        const messageContainer = document.createElement('div');
+                        messageContainer.className = 'd-flex align-items-start mb-3';
+
+                        const imgElement = document.createElement('img');
+                        imgElement.className = 'mr-3';
+                        imgElement.style.width = '50px'; // Adjust the size as needed
+
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'alert flex-grow-1 ';
+                        messageElement.innerHTML = message.content.replace(/\n/g, '<br>');
+
+                        if (message.name === 'User_proxy') {
+                            imgElement.src = '/static/img/User.png';
+                            imgElement.alt = 'User';
+                            messageElement.classList.add('alert-primary');
+                        } else if (message.name === 'Critic') {
+                            imgElement.src = '/static/img/Critic.png';
+                            imgElement.alt = 'Critic';
+                            messageElement.classList.add('alert-danger');
+                        } else if (message.name === 'Coder') {
+                            imgElement.src = '/static/img/Coder.png';
+                            imgElement.alt = 'Coder';
+                            messageElement.classList.add('alert-success');
+                        }
+
+                        messageContainer.appendChild(imgElement);
+                        messageContainer.appendChild(messageElement);
+                        messagesDiv.appendChild(messageContainer);
+
+                        // Scroll to the latest message
+                        messageContainer.scrollIntoView({ behavior: 'smooth' });
+
+                        index++;
+                        setTimeout(displayNextMessage, 2500); // Wait for 0.5 seconds before displaying the next message
+                    } else {
+                        // Display the analysis.png image at the end
+                        const analysisImage = document.createElement('img');
+                        analysisImage.src = '/static/img/analysis.png';
+                        analysisImage.alt = 'Analysis';
+                        analysisImage.className = 'img-fluid';
+                        analysisDiv.appendChild(analysisImage);
+
+                        // Scroll to the analysis image
+                        analysisImage.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                displayNextMessage();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

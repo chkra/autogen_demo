@@ -1,0 +1,14 @@
+[
+    {
+        "name": "GPT4_LLM",
+        "api_key": "",
+        "model_id": "gpt-4",
+        "endpoint_url": "https://api.openai.com/v1/completions"
+    },
+    {
+        "name": "CustomLLM",
+        "api_key": "CUSTOM_API_KEY",
+        "model_id": "custom-model",
+        "endpoint_url": "https://custom-llm.example.com/api/v1"
+    }
+]
