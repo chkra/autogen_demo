@@ -47,4 +47,6 @@ Click the "Klicken Sie hier" button to start the dialog between the AI agents.
 * If the cheat mode is _off_ in 'app/ai/agents.py', the actual LLM agents are called using your `api_key`. The whole dialog is first computed, then displayed in the browser, so watch the command line for iterative output. After computation, the whole dialog will be stored in a json in `/app/ai` and also handed to the browser client for display.
 * If the cheat mode is _on_ in 'app/ai/agents.py', the json file in `/` will be read and displayed. No AI is called.
 
-The messages from the agents will be displayed one by one with a delay of 0.5 seconds per message in the browser. At the end, the analysis graphic analysis.png will be displayed
+The messages from the agents will be displayed one by one with a delay of 0.5 seconds per message in the browser. At the end, the analysis graphic analysis.png will be displayed:
+
+![](/static/img/Robots_Talking.png)
