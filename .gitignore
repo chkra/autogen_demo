@@ -1,0 +1,5 @@
+app/ai/api_key
+app/__pycache__/
+app/ai/__pycache__/
+app/.cache
+app/ai/.cache/*
