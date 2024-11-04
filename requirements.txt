@@ -1,1 +1,8 @@
 Flask==2.0.1
+Werkzeug==2.2.2
+autogen-agentchat~=0.2
+pandas
+matplotlib
+requests
+seaborn
+flaml[automl]

@@ -1,9 +1,5 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
 import json
 import time
-from IPython.display import Image
 
 import autogen
 
